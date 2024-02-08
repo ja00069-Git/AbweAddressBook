@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using AbweAddressBook.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add EF Core DI
+builder.Services.AddDbContext<ContactContext>(options =>
+       options.UseSqlServer(builder.Configuration.GetConnectionString("ContactContext")));
 
 var app = builder.Build();
 
