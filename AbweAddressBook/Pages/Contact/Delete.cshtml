@@ -1,0 +1,24 @@
+﻿@model AbweAddressBook.Models.Contact?
+
+@{
+    string title = ViewBag.Action + "Contact's";
+    ViewBag.Title = title;
+}
+<h2>@ViewBag.Title</h2>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ContactId"/>
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-control" disabled/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-control" disabled/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" disabled />
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-controller="Contact" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
