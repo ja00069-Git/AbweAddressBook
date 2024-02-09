@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace AbweAddressBook.Models
 {
@@ -17,9 +18,14 @@ namespace AbweAddressBook.Models
         public string? NickName { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number")]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Please enter a valid phone number")]
+        [RegularExpression(@"^\(\d{3}\) \d{3}-\d{4}$", ErrorMessage = "Please enter a valid phone number")]
         public string? PhoneNumber { get; set; }
 
         public DateTime? DateCreated { get; set; } = DateTime.Now;
+
+        public int CategoryId { get; set; }
+
+        [ValidateNever]
+        public Category Category { get; set; } = null!;
     }
 }

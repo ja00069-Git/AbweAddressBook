@@ -1,5 +1,6 @@
 ﻿using AbweAddressBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AbweAddressBook.Controllers;
 
@@ -15,6 +16,7 @@ public class ContactController : Controller
     public IActionResult Add()
     {
         ViewBag.Action = "Add";
+        ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
         return View("Edit", new Contact());
     }
 
@@ -29,6 +31,7 @@ public class ContactController : Controller
         }
 
         ViewBag.Action = "Add";
+        ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
         return View("Edit", contact);
     }
 
@@ -36,6 +39,7 @@ public class ContactController : Controller
     public IActionResult Edit(int id)
     {
         ViewBag.Action = "Edit";
+        ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
         Contact? contact = Context.Contacts.Find(id);
         return View(contact);
     }
@@ -45,18 +49,27 @@ public class ContactController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (contact.ContactId == 0)
+            if (contact.ContactId == 0 & !Context.Contacts.Contains(contact))
                 Context.Contacts.Add(contact);
             else
                 Context.Contacts.Update(contact);
             Context.SaveChanges();
             return RedirectToAction("Details", new { id = contact.ContactId });
         }
+        else
+        {
+            ModelState.Remove("CategoryId");
 
-        ViewBag.Action = "Edit";
-        return View(contact);
+            if (contact.CategoryId <= 0)
+            {
+                ModelState.AddModelError("CategoryId", "Please select a category.");
+            }
+
+            ViewBag.Action = "Edit";
+            ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
+            return View(contact);
+        }
     }
-
 
     [HttpGet]
     public IActionResult Delete(int id)
@@ -76,6 +89,7 @@ public class ContactController : Controller
     [HttpGet]
     public IActionResult Details(int id)
     {
+        ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
         Contact? contact = Context.Contacts.Find(id);
         return View(contact);
     }
