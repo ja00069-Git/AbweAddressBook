@@ -18,12 +18,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Contact\Delete.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Contact\Delete.cshtml" />
-  </ItemGroup>
-
 </Project>

@@ -1,78 +1,82 @@
 ﻿using AbweAddressBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AbweAddressBook.Controllers
+namespace AbweAddressBook.Controllers;
+
+public class ContactController : Controller
 {
-    public class ContactController : Controller
+    public ContactController(ContactContext ctx)
     {
-        private ContactContext Context { get; set; }
+        Context = ctx;
+    }
 
-        public ContactController(ContactContext ctx) => Context = ctx;
+    private ContactContext Context { get; }
 
-        [HttpGet]
-        public IActionResult Add()
+    public IActionResult Add()
+    {
+        ViewBag.Action = "Add";
+        return View("Edit", new Contact());
+    }
+
+    [HttpPost]
+    public IActionResult Add(Contact contact)
+    {
+        if (ModelState.IsValid)
         {
-            ViewBag.Action = "Add";
-            return View("Edit", new Contact());
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            ViewBag.Action = "Edit";
-            Contact? contact = Context.Contacts.Find(id);
-            return View(contact);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Contact contact)
-        {
-            if (ModelState.IsValid)
-            {
-                if (contact.ContactId == 0)
-                {
-                    Context.Contacts.Add(contact);
-                }
-                else
-                {
-                    Context.Contacts.Update(contact);
-                }
-                Context.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewBag.Action = (contact.ContactId == 0) ? "Add" : "Edit";
-                return View(contact);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            Contact? contact = Context.Contacts.Find(id);
-            return View(contact);
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Contact contact)
-        {
-            Context.Contacts.Remove(contact);
+            Context.Contacts.Add(contact);
             Context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Details", new { id = contact.ContactId });
         }
 
-        [HttpGet]
-        public IActionResult Details(int id)
+        ViewBag.Action = "Add";
+        return View("Edit", contact);
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        ViewBag.Action = "Edit";
+        Contact? contact = Context.Contacts.Find(id);
+        return View(contact);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Contact contact)
+    {
+        if (ModelState.IsValid)
         {
-            Contact? contact = Context.Contacts.Find(id);
-            return View(contact);
+            if (contact.ContactId == 0)
+                Context.Contacts.Add(contact);
+            else
+                Context.Contacts.Update(contact);
+            Context.SaveChanges();
+            return RedirectToAction("Details", new { id = contact.ContactId });
         }
 
-        [HttpPost]
-        public IActionResult Details(Contact contact)
-        {
-            return RedirectToAction("Index", "Home");
-        }
+        ViewBag.Action = "Edit";
+        return View(contact);
+    }
+
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Contact? contact = Context.Contacts.Find(id);
+        return View(contact);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Contact contact)
+    {
+        Context.Contacts.Remove(contact);
+        Context.SaveChanges();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult Details(int id)
+    {
+        Contact? contact = Context.Contacts.Find(id);
+        return View(contact);
     }
 }

@@ -1,0 +1,32 @@
+﻿@model AbweAddressBook.Models.Contact?
+
+@{
+    ViewBag.Title = "Contact's Details";
+}
+<h2>@ViewBag.Title</h2>
+<form asp-action="Details">
+    <input type="hidden" asp-for="ContactId"/>
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">First Name</label>
+       <input asp-for="FirstName" class="form-control" readonly/>
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Last Name</label>
+        <input asp-for="LastName" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NickName" class="form-label">Nickname</label>
+        <input asp-for="NickName" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="PhoneNumber" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label asp-for="DateCreated" class="form-label">Date Created</label>
+        <input asp-for="DateCreated" class="form-control" readonly />
+    </div>
+    <a asp-controller="Contact" asp-route-id="@if (Model != null) {@Model.ContactId }" asp-action="Edit" class="btn btn-primary">Edit</a>
+    <a asp-controller="Contact" asp-route-id="@if (Model != null) {@Model.ContactId }" asp-action="Delete" class="btn btn-danger">Delete</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

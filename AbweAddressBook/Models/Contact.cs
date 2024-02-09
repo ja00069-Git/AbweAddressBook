@@ -17,6 +17,6 @@ namespace AbweAddressBook.Models
         [Required(ErrorMessage = "Please enter your phone number")]
         public string? PhoneNumber { get; set; }
 
-        public DateTime? DateCreated { get; set; } = DateTime.Now;
+        public DateTime? DateCreated { get; set; } = DateTime.Now.Date;
     }
 }
