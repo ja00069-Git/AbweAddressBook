@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace AbweAddressBook.Controllers;
 
 /// <summary>
-/// The controller for the contact pages.
-/// Jabesi Abwe
-/// 02/07/2024
+///     The controller for the contact pages.
+///     Jabesi Abwe
+///     02/07/2024
 /// </summary>
 /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
 public class ContactController : Controller
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContactController"/> class.
+    ///     Initializes a new instance of the <see cref="ContactController" /> class.
     /// </summary>
     /// <param name="ctx">The CTX.</param>
     public ContactController(ContactContext ctx)
@@ -21,15 +21,15 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Gets the Contact Context.
+    ///     Gets the Contact Context.
     /// </summary>
     /// <value>
-    /// The context.
+    ///     The context.
     /// </value>
     private ContactContext Context { get; }
 
     /// <summary>
-    /// Adds a new contact.
+    ///     Adds a new contact.
     /// </summary>
     /// <returns>Details of the added contact</returns>
     public IActionResult Add()
@@ -40,7 +40,7 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Adds the specified contact.
+    ///     Adds the specified contact.
     /// </summary>
     /// <param name="contact">The contact.</param>
     /// <returns>Details of the added contact</returns>
@@ -68,7 +68,7 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Edits the specified contact.
+    ///     Edits the specified contact.
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>The details of the edited contact</returns>
@@ -82,7 +82,7 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Edits the specified contact.
+    ///     Edits the specified contact.
     /// </summary>
     /// <param name="contact">The contact.</param>
     /// <returns>The details of the edited contact</returns>
@@ -120,12 +120,12 @@ public class ContactController : Controller
     {
         return Context.Contacts.Any(c =>
             c.LastName == contact.LastName &&
-            c.Category.Name == contact.Category.Name &&
-            c.PhoneNumber == contact.PhoneNumber);
+            c.PhoneNumber == contact.PhoneNumber &&
+            c.CategoryId == contact.CategoryId);
     }
 
     /// <summary>
-    /// Deletes the specified contact.
+    ///     Deletes the specified contact.
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>To the home page</returns>
@@ -137,7 +137,7 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Deletes the specified contact.
+    ///     Deletes the specified contact.
     /// </summary>
     /// <param name="contact">The contact.</param>
     /// <returns>To the home page</returns>
@@ -150,7 +150,7 @@ public class ContactController : Controller
     }
 
     /// <summary>
-    /// Details of specified contact.
+    ///     Details of specified contact.
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>The Details</returns>

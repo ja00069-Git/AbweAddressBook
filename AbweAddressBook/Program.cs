@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using AbweAddressBook.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,9 +8,10 @@ builder.Services.AddControllersWithViews();
 
 // Add EF Core DI
 builder.Services.AddDbContext<ContactContext>(options =>
-       options.UseSqlServer(builder.Configuration.GetConnectionString("ContactContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ContactContext")));
 
-builder.Services.AddRouting(options => {
+builder.Services.AddRouting(options =>
+{
     options.LowercaseUrls = true;
     options.AppendTrailingSlash = true;
 });
@@ -18,8 +19,8 @@ builder.Services.AddRouting(options => {
 var app = builder.Build();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}/{slug?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}/{slug?}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -37,7 +38,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

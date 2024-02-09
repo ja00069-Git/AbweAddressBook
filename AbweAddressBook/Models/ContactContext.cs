@@ -3,13 +3,13 @@
 namespace AbweAddressBook.Models;
 
 /// <summary>
-/// The contact context.
+///     The contact context.
 /// </summary>
 /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
 public class ContactContext : DbContext
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContactContext"/> class.
+    ///     Initializes a new instance of the <see cref="ContactContext" /> class.
     /// </summary>
     /// <param name="options">The options.</param>
     public ContactContext(DbContextOptions<ContactContext> options) : base(options)
@@ -17,18 +17,18 @@ public class ContactContext : DbContext
     }
 
     /// <summary>
-    /// Gets or sets the contacts.
+    ///     Gets or sets the contacts.
     /// </summary>
     /// <value>
-    /// The contacts.
+    ///     The contacts.
     /// </value>
     public DbSet<Contact> Contacts { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the categories
+    ///     Gets or sets the categories
     /// </summary>
     /// <value>
-    /// The categories
+    ///     The categories
     /// </value>
     public DbSet<Category> Categories { get; set; } = null!;
 

@@ -3,7 +3,7 @@
     Jabesi Abwe
     02/07/2024
 *@
-@model AbweAddressBook.Models.Contact?
+@model Contact?
 
 @{
     ViewBag.Title = "Delete Contact";
@@ -21,7 +21,7 @@
     </div>
     <div class="mb-3">
         <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" disabled />
+        <input asp-for="PhoneNumber" class="form-control" disabled/>
     </div>
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>

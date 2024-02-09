@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 namespace AbweAddressBook.Controllers;
 
 /// <summary>
-/// The controller for the home page.
-/// Jabesi Abwe
-/// 02/08/2024
+///     The controller for the home page.
+///     Jabesi Abwe
+///     02/08/2024
 /// </summary>
 /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
 public class HomeController : Controller
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="HomeController"/> class.
+    ///     Initializes a new instance of the <see cref="HomeController" /> class.
     /// </summary>
     /// <param name="ctx">The CTX.</param>
     public HomeController(ContactContext ctx)
@@ -22,10 +22,10 @@ public class HomeController : Controller
     }
 
     /// <summary>
-    /// Gets the Contact Context.
+    ///     Gets the Contact Context.
     /// </summary>
     /// <value>
-    /// The context.
+    ///     The context.
     /// </value>
     private ContactContext Context { get; }
 
