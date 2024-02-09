@@ -10,7 +10,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ContactContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("ContactContext")));
 
+builder.Services.AddRouting(options => {
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+});
+
 var app = builder.Build();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}/{slug?}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

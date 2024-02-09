@@ -1,9 +1,14 @@
-﻿@model IList<AbweAddressBook.Models.Contact>
+﻿@*
+    The Index view for the Home controller
+    Jabesi Abwe
+    02/07/2024
+*@
+@model IList<AbweAddressBook.Models.Contact>
 @{
     ViewData["Title"] = "Abwe Address Book";
 }
 <div class="mb-2">
-    <a asp-controller="Contact" asp-action="Add">Add New Contact</a>
+    <a asp-controller="Contact" asp-action="Add" class="btn btn-outline-primary">Add New Contact</a>
 </div>
 <table class="table table-bordered table-striped">
     <thead>
@@ -20,14 +25,14 @@
         @foreach (var contact in Model)
         {
             <tr>
-                <td><a asp-controller="Contact" asp-action="Details" asp-route-id="@contact.ContactId">@contact.FirstName</a></td>
-                <td><a asp-controller="Contact" asp-action="Details" asp-route-id="@contact.ContactId">@contact.LastName</a></td>
-                <td><a asp-controller="Contact" asp-action="Details" asp-route-id="@contact.ContactId">@contact.NickName</a></td>
+                <td><a asp-controller="Contact" asp-action="Details" class="text-decoration-none" asp-route-id="@contact.ContactId" asp-route-slug="@contact.Slug">@contact.FirstName</a></td>
+                <td><a asp-controller="Contact" asp-action="Details" class="text-decoration-none" asp-route-id="@contact.ContactId" asp-route-slug="@contact.Slug">@contact.LastName</a></td>
+                <td><a asp-controller="Contact" asp-action="Details" class="text-decoration-none" asp-route-id="@contact.ContactId" asp-route-slug="@contact.Slug">@contact.NickName</a></td>
                 <td>@contact.Category.Name</td>
                 <td>@contact.PhoneNumber</td>
                 <td>
-                    <a asp-controller="Contact" asp-action="Edit" asp-route-id="@contact.ContactId">Edit</a> |
-                    <a asp-controller="Contact" asp-action="Delete" asp-route-id="@contact.ContactId">Delete</a>
+                    <a asp-controller="Contact" asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@contact.ContactId" asp-route-slug="@contact.Slug">Edit</a> |
+                    <a asp-controller="Contact" asp-action="Delete" class="btn btn-danger" asp-route-id="@contact.ContactId" asp-route-slug="@contact.Slug">Delete</a>
                 </td>
             </tr>
         }
