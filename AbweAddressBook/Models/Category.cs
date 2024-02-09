@@ -1,8 +1,7 @@
-﻿namespace AbweAddressBook.Models
+﻿namespace AbweAddressBook.Models;
+
+public class Category
 {
-    public class Category
-    {
-        public int CategoryId { get; set; }
-        public string? Name { get; set; } = string.Empty;
-    }
+    public int CategoryId { get; set; }
+    public string? Name { get; set; } = string.Empty;
 }

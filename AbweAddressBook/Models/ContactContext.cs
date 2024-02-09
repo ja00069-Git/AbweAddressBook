@@ -29,7 +29,6 @@ public class ContactContext : DbContext
                 CategoryId = 1,
                 PhoneNumber = "123-456-7890",
                 DateCreated = new DateTime(2023, 12, 20)
-
             },
             new Contact
             {

@@ -1,9 +1,9 @@
-﻿@model AbweAddressBook.Models.Contact
+﻿@model Contact
 @{
     string title = ViewBag.Action + " Contact";
     ViewBag.Title = title;
 }
-<h2>@ViewBag.Title</h2> 
+<h2>@ViewBag.Title</h2>
 <form asp-action="Edit" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 

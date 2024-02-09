@@ -1,6 +1,5 @@
 ﻿using AbweAddressBook.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace AbweAddressBook.Controllers;
 
@@ -25,6 +24,14 @@ public class ContactController : Controller
     {
         if (ModelState.IsValid)
         {
+            if (IsDuplicateContact(contact))
+            {
+                ModelState.AddModelError("", "A contact with the same information already exists.");
+                ViewBag.Action = "Add";
+                ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
+                return View("Edit", contact);
+            }
+
             Context.Contacts.Add(contact);
             Context.SaveChanges();
             return RedirectToAction("Details", new { id = contact.ContactId });
@@ -35,12 +42,13 @@ public class ContactController : Controller
         return View("Edit", contact);
     }
 
+
     [HttpGet]
     public IActionResult Edit(int id)
     {
         ViewBag.Action = "Edit";
         ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
-        Contact? contact = Context.Contacts.Find(id);
+        var contact = Context.Contacts.Find(id);
         return View(contact);
     }
 
@@ -49,32 +57,43 @@ public class ContactController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (contact.ContactId == 0 & !Context.Contacts.Contains(contact))
+            if (IsDuplicateContact(contact))
+            {
+                ModelState.AddModelError("", "A contact with the same information already exists.");
+                ViewBag.Action = "Edit";
+                ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
+                return View(contact);
+            }
+
+            if (contact.ContactId == 0)
                 Context.Contacts.Add(contact);
             else
                 Context.Contacts.Update(contact);
             Context.SaveChanges();
             return RedirectToAction("Details", new { id = contact.ContactId });
         }
-        else
-        {
-            ModelState.Remove("CategoryId");
 
-            if (contact.CategoryId <= 0)
-            {
-                ModelState.AddModelError("CategoryId", "Please select a category.");
-            }
+        ModelState.Remove("CategoryId");
 
-            ViewBag.Action = "Edit";
-            ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
-            return View(contact);
-        }
+        if (contact.CategoryId <= 0) ModelState.AddModelError("CategoryId", "Please select a category.");
+
+        ViewBag.Action = "Edit";
+        ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
+        return View(contact);
+    }
+
+    private bool IsDuplicateContact(Contact contact)
+    {
+        return Context.Contacts.Any(c =>
+            c.LastName == contact.LastName &&
+            c.Category.Name == contact.Category.Name &&
+            c.PhoneNumber == contact.PhoneNumber);
     }
 
     [HttpGet]
     public IActionResult Delete(int id)
     {
-        Contact? contact = Context.Contacts.Find(id);
+        var contact = Context.Contacts.Find(id);
         return View(contact);
     }
 
@@ -90,7 +109,7 @@ public class ContactController : Controller
     public IActionResult Details(int id)
     {
         ViewBag.Categories = Context.Categories.OrderBy(c => c.Name).ToList();
-        Contact? contact = Context.Contacts.Find(id);
+        var contact = Context.Contacts.Find(id);
         return View(contact);
     }
 }

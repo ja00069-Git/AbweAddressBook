@@ -1,4 +1,4 @@
-﻿@model AbweAddressBook.Models.Contact?
+﻿@model Contact?
 
 @{
     ViewBag.Title = "Contact's Details";
@@ -8,27 +8,27 @@
     <input type="hidden" asp-for="ContactId"/>
     <div class="mb-3">
         <label asp-for="FirstName" class="form-label">First Name</label>
-       <input asp-for="FirstName" class="form-control" readonly/>
+        <input asp-for="FirstName" class="form-control" readonly/>
     </div>
     <div class="mb-3">
         <label asp-for="LastName" class="form-label">Last Name</label>
-        <input asp-for="LastName" class="form-control" readonly />
+        <input asp-for="LastName" class="form-control" readonly/>
     </div>
     <div class="mb-3">
         <label asp-for="NickName" class="form-label">Nickname</label>
-        <input asp-for="NickName" class="form-control" readonly />
+        <input asp-for="NickName" class="form-control" readonly/>
     </div>
     <div class="mb-3">
         <label asp-for="Category.Name" class="form-label">Category</label>
-        <input asp-for="Category.Name" class="form-control" readonly />
+        <input asp-for="Category.Name" class="form-control" readonly/>
     </div>
     <div class="mb-3">
         <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
-        <input asp-for="PhoneNumber" class="form-control" readonly />
+        <input asp-for="PhoneNumber" class="form-control" readonly/>
     </div>
     <div class="mb-3">
         <label asp-for="DateCreated" class="form-label">Date Created</label>
-        <input type="date" asp-for="DateCreated" class="form-control" readonly />
+        <input type="date" asp-for="DateCreated" class="form-control" readonly/>
     </div>
     <a asp-controller="Contact" asp-route-id="@if (Model != null) {@Model.ContactId }" asp-action="Edit" class="btn btn-primary">Edit</a>
     <a asp-controller="Contact" asp-route-id="@if (Model != null) {@Model.ContactId }" asp-action="Delete" class="btn btn-danger">Delete</a>
