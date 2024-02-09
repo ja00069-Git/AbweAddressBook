@@ -7,6 +7,9 @@
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="ContactId"/>
     <input type="hidden" asp-for="DateCreated"/>
+    <div>
+        <asp-validation-summary model="All" class="text-danger"/>
+    </div>
     <div class="mb-3">
         <label asp-for="FirstName" class="form-label">First Name</label>
         <input asp-for="FirstName" class="form-control"/>
